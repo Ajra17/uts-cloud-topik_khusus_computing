@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>UTS Cloud Computing - Activity Tracker</title>
+    <style>
+        body { font-family: sans-serif; background-color: #f0f2f5; padding: 50px; }
+        .container { background: white; max-width: 450px; margin: auto; padding: 20px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; }
+        button { width: 100%; padding: 10px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background-color: #0056b3; }
+        ul { list-style: none; padding: 0; margin-top: 20px; }
+        li { background: #e9ecef; margin-bottom: 5px; padding: 10px; border-radius: 5px; display: flex; justify-content: space-between; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Daily Activity Tracker</h2>
+    <input type="text" id="inputAktivitas" placeholder="Nama Aktivitas (misal: Belajar Cloud)">
+    <input type="number" id="inputDurasi" placeholder="Durasi (menit)">
+    <button id="btnTambah">Tambah Aktivitas</button>
+
+    <p id="infoTotal">Total: 0 menit (0 aktivitas)</p>
+    <ul id="daftarAktivitas"></ul>
+</div>
+
+<script>
+    // 1. Hubungkan HTML ke DOM (Syaraf) [cite: 61, 137]
+    const inputAkt = document.getElementById("inputAktivitas");
+    const inputDur = document.getElementById("inputDurasi");
+    const btn = document.getElementById("btnTambah");
+    const infoTotal = document.getElementById("infoTotal");
+    const daftar = document.getElementById("daftarAktivitas");
+
+    let totalMenit = 0;
+    let jumlahAkt = 0;
+
+    // 2. Beri Logika dengan JavaScript (Otak) [cite: 62]
+    btn.addEventListener("click", function() {
+        const nama = inputAkt.value;
+        const durasi = parseInt(inputDur.value);
+
+        if (nama && !isNaN(durasi)) {
+            // Update Data
+            totalMenit += durasi;
+            jumlahAkt++;
+
+            // 3. Update UI melalui DOM [cite: 107]
+            const li = document.createElement("li");
+            li.innerHTML = `<span>${nama}</span> <strong>${durasi} menit</strong>`;
+            daftar.appendChild(li);
+
+            infoTotal.innerText = `Total: ${totalMenit} menit (${jumlahAkt} aktivitas)`;
+
+            // Reset Input
+            inputAkt.value = "";
+            inputDur.value = "";
+        }
+    });
+</script>
+
+</body>
+</html>
